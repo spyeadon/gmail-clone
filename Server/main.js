@@ -14,10 +14,23 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+//session middleware
+app.use(session({
+  secret: "soren's_gmail_clone",
+  resave: false,
+  saveUnitialized: false
+}));
+
+app.use(function (req, res, next) {
+  console.log('session', req.session);
+  next();
+});
+
 //request routing middleware
 app.use('/api', api);
 
 app.get('/', (req, res, next) => {
+  req.session.testID = 'testID';
   res.json('root page test');
 });
 

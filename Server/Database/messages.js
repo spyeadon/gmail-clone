@@ -41,6 +41,9 @@ const Messages = db.define('messages', {
     truncateSubject: function () {
       if (this.subject.length < 15) return this.subject.slice(0, 15);
       else return this.subject;
+    },
+    toggleStatus: function (dbProp) {
+      this.dbProp = !this.dbProp;
     }
   }
 });
