@@ -18,6 +18,23 @@ router.get('/profile/:userId', (req, res, next) => {
 
 });
 
+router.put('/profile/:userId', (req, res, next) => {
+  let userId = req.params.userId;
+  let updatedProps = req.body;
+
+  Users.findOne({
+    where: {id: userId}
+  })
+  .then(user => {
+    return user.update(updatedProps);
+  })
+  .then(updatedUser => {
+    res.status(200).json(updatedUser);
+  })
+  .catch(err => console.log(err));
+
+});
+
 router.post('/login', (req, res, next) => {
   let username = req.body.username;
   let password = req.body.password;
@@ -29,7 +46,7 @@ router.post('/login', (req, res, next) => {
     }
   })
   .then(user => {
-    if(!user) res.status(404);
+    if (!user) res.status(404);
     else req.session.userId = user.id;
     res.status(201).json('sessionId created');
   })
