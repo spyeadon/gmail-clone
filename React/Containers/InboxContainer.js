@@ -3,19 +3,19 @@ import Inbox from '../Components/Inbox.js';
 
 function mapStateToProps (state) {
   return {
-
+    messages: state.messages.messages
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
+// function mapDispatchToProps (dispatch) {
+//   return {
 
-  }
-}
+//   }
+// }
 
 const InboxContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Inbox);
 
 export default InboxContainer;

@@ -2,9 +2,9 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const session = require('express-session');
 const express = require('express');
-const Messages = require('./Database/index.js').Messages;
-const Users = require('./Database/index.js').Users;
-const api = require('./Routes/api.js');
+const Messages = require('./Server/Database/index.js').Messages;
+const Users = require('./Server/Database/index.js').Users;
+const api = require('./Server/Routes/api.js');
 const app = express();
 
 //logging middleware
@@ -22,22 +22,32 @@ app.use(session({
 }));
 
 app.use(function (req, res, next) {
-  console.log('session', req.session);
+  //console.log('session', req.session);
   next();
 });
 
-//request routing middleware
+//api request routing middleware
 app.use('/api', api);
 
-app.get('/', (req, res, next) => {
-  req.session.testID = 'testID';
-  res.json('root page test');
+//serves up folders with static assets that index.html file uses in the rendering process
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
+
+var npmPath = path.join(appDir, './node_modules');
+var publicPath = path.join(appDir, './Public');
+var indexPath = path.join(appDir, './React/index.html');
+
+app.use(express.static(npmPath));
+app.use(express.static(publicPath));
+
+app.get('/*', (req, res, next) => {
+  res.sendFile(indexPath);
 });
 
 //error handling middleware
-app.use( (req, res, next, err) => {
+app.use( (err, req, res, next) => {
   console.log(err);
-  res.status(err.status || 500).send('This is an error message from yours truly! :(');
+  res.status(500).send('This is an error message from yours truly! :(');
 });
 
 //database syncing and server connection

@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Messages = require('../Database/index.js').Messages;
 
-router.get('/inbox:userId', (req, res, next) => {
+router.get('/:userId', (req, res, next) => {
   let userId = req.params.userId;
 
   Messages.findAll({
     where: {
-      toId: userId,
-      fromId: userId
+      $or:
+      {toId: userId,
+      fromId: userId}
     }
   })
   .then(allMail => {

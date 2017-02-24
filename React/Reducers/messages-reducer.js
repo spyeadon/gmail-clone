@@ -1,15 +1,17 @@
 import {GET_MESSAGES,
   UPDATE_MESSAGE,
-  CREATE_MESSAGE,
+  ADD_MESSAGE,
   SEND_MESSAGE,
   DELETE_MESSAGE
 } from '../Action-Creators/messages-actions.js';
 
+
 const initialState = { messages: [], message: {} };
+
 
 export default function messagesReducer (state = initialState, action) {
 
-  const newState = Object.assign({}, initialState);
+  const newState = Object.assign({}, state);
 
   switch (action.type) {
 
@@ -21,8 +23,8 @@ export default function messagesReducer (state = initialState, action) {
       newState.message =  action.message;
       return newState;
 
-    case CREATE_MESSAGE:
-      newState.message = action.message;
+    case ADD_MESSAGE:
+      newState.messages.push(action.message);
       return newState;
 
     case SEND_MESSAGE:

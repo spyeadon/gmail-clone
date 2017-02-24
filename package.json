@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start": "webpack -w & nodemon --watch server -e js,html Server/main.js"
+    "start": "webpack -w & nodemon --watch server -e js,html main.js"
   },
   "author": "Soren Yeadon",
   "license": "ISC",

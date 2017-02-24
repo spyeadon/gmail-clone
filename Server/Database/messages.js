@@ -39,11 +39,15 @@ const Messages = db.define('messages', {
 }, {
   instanceMethods: {
     truncateSubject: function () {
-      if (this.subject.length < 15) return this.subject.slice(0, 15);
+      if (this.subject.length > 15) return this.subject.slice(0, 15);
       else return this.subject;
     },
     toggleStatus: function (dbProp) {
       this.dbProp = !this.dbProp;
+    },
+    truncateBody: function () {
+      if (this.body.length > 40) return this.body.slice(0, 40);
+      else return this.body;
     }
   }
 });
