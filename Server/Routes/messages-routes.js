@@ -21,10 +21,25 @@ router.get('/:userId', (req, res, next) => {
 
 });
 
+router.get('/', (req, res, next) => {
+  Messages.findAll()
+  .then(allMsgs => {
+    res.json(allMsgs);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});
+
 router.post('/', (req, res, next) => {
   let message = req.body;
+  console.log("mesage is: ", message);
 
-  Messages.create(message)
+  Messages.create({
+    subject: message.subject,
+    body: message.body,
+    fromId: message.sender
+  })
   .then( () => {
     res.status(201).json();
   });

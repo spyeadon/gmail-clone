@@ -17,19 +17,23 @@ import Home from './Components/Home.js';
 import Login from './Components/Login.js';
 import Signup from './Components/Signup.js';
 
-import {retrieveMessages} from './Action-Creators/messages-actions.js';
+import {retrieveMessages, updateMessage} from './Action-Creators/messages-actions.js';
 
 
 const onInboxEnter = function (nextRouterState) {
   const userId = nextRouterState.params.userId;
   store.dispatch(retrieveMessages(userId));
+  store.dispatch(updateMessage({}));
 };
 
+const resetSingleMessage = function(nextRouterState) {
+  store.dispatch(updateMessage({}));
+}
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App} >
+      <Route path="/" component={App}>
 
         <Route path="/home" component={Home} >
           <Route path="/login" component={Login} />
@@ -37,12 +41,12 @@ ReactDOM.render(
         </Route>
 
         <Route path="/inbox/:userId" component={InboxContainer} onEnter={onInboxEnter} />
-        <Route path="/drafts/:userId" component={DraftsContainer} />
-        <Route path="/spam/:userId" component={SpamContainer} />
-        <Route path="/important/:userId" component={ImportantContainer} />
-        <Route path="/sent/:userId" component={SentContainer} />
-        <Route path="/trash/:userId" component={TrashContainer} />
-        <Route path="/compose/:userId" component={MessageContainer} />
+        <Route path="/drafts/:userId" component={DraftsContainer} onEnter={resetSingleMessage} />
+        <Route path="/spam/:userId" component={SpamContainer} onEnter={resetSingleMessage} />
+        <Route path="/important/:userId" component={ImportantContainer} onEnter={resetSingleMessage} />
+        <Route path="/sent/:userId" component={SentContainer} onEnter={resetSingleMessage} />
+        <Route path="/trash/:userId" component={TrashContainer} onEnter={resetSingleMessage} />
+        <Route path="/compose/:msgId" component={MessageContainer} />
 
       </Route>
     </Router>

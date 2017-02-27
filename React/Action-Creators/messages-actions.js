@@ -3,21 +3,21 @@ import axios from 'axios';
 //messages constants/actions
 export const GET_MESSAGES = 'ALL_MESSAGES';
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
-export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const SAVE_MESSAGE = 'SAVE_MESSAGE';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 
 //messages action-creators
-const addMessage = message => {
-  return {type: ADD_MESSAGE, message};
+const saveMessage = message => {
+  return {type: SAVE_MESSAGE, message};
 }
 
 const getAllMessages = (messages) => {
   return {type: GET_MESSAGES, messages};
 }
 
-const updateMessage = message => {
+export const updateMessage = message => {
   return {type: UPDATE_MESSAGE, message};
 }
 
@@ -44,12 +44,40 @@ export const retrieveMessages = userId => {
   }
 }
 
-export const messageCreator = message => {
+export const messageCreatorSave = message => {
+  return dispatch => {
+    axios.post('/api/messages', message)
+    .then(res => {
+      console.log("this is the message response: ", res);
+      let message = res.data;
+      //dispatch(saveMessage(message));
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+}
+
+export const messageCreatorSend = message => {
   return dispatch => {
     axios.post('/api/messages', message)
     .then(res => {
       let message = res.data;
-      dispatch(addMessage(message));
+      dispatch(sendMessage(message));
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+}
+
+export const messageUpdator = (message) => {
+  return dispatch => {
+    axios.put(`/api/messages/${message.id}`, message)
+    .then(res => {
+      let updatedMessage = res.data;
+      //dispatch(saveMessage(updatedMessage));
+      dispatch(updateMessage({}))
     })
     .catch(err => {
       console.log(err);

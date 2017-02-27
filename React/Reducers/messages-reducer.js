@@ -1,6 +1,6 @@
 import {GET_MESSAGES,
   UPDATE_MESSAGE,
-  ADD_MESSAGE,
+  SAVE_MESSAGE,
   SEND_MESSAGE,
   DELETE_MESSAGE
 } from '../Action-Creators/messages-actions.js';
@@ -23,11 +23,12 @@ export default function messagesReducer (state = initialState, action) {
       newState.message =  action.message;
       return newState;
 
-    case ADD_MESSAGE:
+    case SAVE_MESSAGE:
       newState.messages.push(action.message);
       return newState;
 
     case SEND_MESSAGE:
+      newState.message.push(action.message);
       newState.message = action.message;
       return newState;
 

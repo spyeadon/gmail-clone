@@ -1,4 +1,4 @@
 .vscode
 node_modules
-public/bundle.js
-public/bundle.js.map
+Public/bundle.js
+Public/bundle.js.map

@@ -3,7 +3,8 @@ import Inbox from '../Components/Inbox.js';
 
 function mapStateToProps (state) {
   return {
-    messages: state.messages.messages
+    messages: state.messages.messages,
+    currentUser: state.users.currentUser
   }
 }
 

@@ -12,6 +12,25 @@ body {
   color: white;
 }
 
+.message-body {
+  height: 150px;
+  line-height: 150px;
+}
+
+.message-subject {
+
+}
+
+.edit {
+  float: right;
+  height: 30px;
+  vertical-align: top;
+}
+
+.message-to {
+  width: 40%;
+}
+
 sidebar {
   position: fixed;
   left: 0;

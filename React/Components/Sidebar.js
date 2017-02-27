@@ -39,7 +39,7 @@ const Sidebar = (props) => {
       <hr />
       <section>
         <h4>
-          <Link className="btn btn-primary btn-block" to="/compose/1">
+          <Link className="btn btn-primary btn-block" to="/compose/0">
             <span className="glyphicon glyphicon-plus"></span> MESSAGE
           </Link>
         </h4>
