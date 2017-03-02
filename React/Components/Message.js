@@ -30,10 +30,11 @@ const Message = (props) => {
           className='form-control message-subject'
           placeholder="Subject line"
         />
-        <input
+        <textarea
           value={body}
           onChange={handleBodyChange}
           style={{marginTop: '20px'}}
+          rows="8"
           type="text"
           className='form-control  message-body'
         />

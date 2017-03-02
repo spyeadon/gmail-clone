@@ -13,12 +13,9 @@ body {
 }
 
 .message-body {
-  height: 150px;
-  line-height: 150px;
-}
-
-.message-subject {
-
+  height: 100px;
+  padding:0 5px;
+  line-height: 20px;
 }
 
 .edit {
